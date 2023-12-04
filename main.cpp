@@ -216,10 +216,33 @@ void CubeGame::calcSumValidGames()
         /* Get each 'sub string' to obtain the number for each color to check validity of report */
         getResultsFromGame(line);
 
-        auto isValid = isGameValid();
-        if(isValid){
-            sumValidGames += gameID;
+// FOR PART 2
+    unsigned long int powerSet = 1;
+    for(auto color : gameResultsMap)
+    {
+        auto max = *max_element(color.second.begin(), color.second.end());
+        // std::cout << "Max value: " << max << " for color: " << color.first << "\n";
+        if(color.first == "red") {
+            powerSet *= max;
         }
+        else if (color.first == "green") {
+            powerSet *= max;
+        }
+        else if (color.first == "blue") {
+            powerSet *= max;
+        }
+        else
+        {
+            std::cout << "NO COLORS MAX!!!\n";
+            break;
+        }
+    }
+    sumValidGames += powerSet;
+//FOR PART 1
+        // auto isValid = isGameValid();
+        // if(isValid){
+        //     sumValidGames += gameID;
+        // }
         for(auto& color : gameResultsMap) 
         {
             color.second.clear(); //reset vector for each game
